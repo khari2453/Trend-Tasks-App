@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "trend-app:latest"
+        AWS_REGION   = "us-east-1"
+        CLUSTER_NAME = "trend-tasks-app"
+        K8S_NAMESPACE = "default"
+        KUBECONFIG = "/home/ec2-user/.kube/config"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', 
+                    url: 'https://github.com/khari2453/Trend-Tasks-App.git',
+                    credentialsId: 'github-cred'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh 'docker push $DOCKER_IMAGE'
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                withAWS(credentials: 'aws-cred', region: "${AWS_REGION}") {
+                    // Update kubeconfig for EKS
+                    sh 'aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME'
+                    
+                    // Apply K8s manifests (deployment + service)
+                    sh 'kubectl apply -f k8s/deployment.yaml -n $K8S_NAMESPACE'
+                    sh 'kubectl apply -f k8s/service.yaml -n $K8S_NAMESPACE'
+
+                    // Update deployment with new image
+                    sh 'kubectl set image deployment/trend-app trend-app=$DOCKER_IMAGE -n $K8S_NAMESPACE'
+
+                    // Ensure rollout succeeds
+                    sh 'kubectl rollout status deployment/trend-app -n $K8S_NAMESPACE'
+                }
+            }
+        }
+    }
+}
