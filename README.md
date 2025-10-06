@@ -1,12 +1,8 @@
 # Trend-Tasks-App
-
-
-<img width="1355" height="675" alt="image" src="https://github.com/user-attachments/assets/0d8ee4da-5328-4221-94f0-29e5b576bf93" />
-# Trend-Tasks-App
 Trendify online shopping website is basically created in React library and lightweight to simplify the complex app .
  
 > Console final output
-pic
+<img width="1355" height="675" alt="image" src="https://github.com/user-attachments/assets/20547e64-bd16-46d8-a45e-0a962efd8436" />
 
 # Prerequisite for the website to run
 - Amazon Ec2 server
@@ -17,4 +13,4 @@ pic
 - Prometheus and grafana
 - Github
 
-img width="48" height="48" src="https://img.icons8.com/color/48/terraform.png" alt="terraform"/>
+<img width="48" height="48" src="https://img.icons8.com/color/48/terraform.png" alt="terraform"/>
