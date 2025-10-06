@@ -33,6 +33,7 @@ We created the main.tf on the using userdata we createing jenkins. `jenkins pre-
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/e57a25e7-36c3-4efb-ba04-8646cd776940" />
 
 # Jenkins_Server
+<img width="48" height="48" src="https://img.icons8.com/color/48/jenkins.png" alt="jenkins"/>
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/17f2b4e1-43c2-4c54-bd6d-717c54d78d14" />
 # jenkins_Running
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/bdb67c94-0e38-4e9f-90dd-8f9d9d3ff000" />
@@ -96,6 +97,20 @@ If the above pipeline is succefull . it will deploy automatically in EKS cluster
 # Step - 11
 On the svc it will provide the external ip using this our application is run on succesfully .
 <img width="1355" height="675" alt="image" src="https://github.com/user-attachments/assets/20547e64-bd16-46d8-a45e-0a962efd8436" />
+
+# Step - 12
+We created on more server for Monitoring tools are prometheus and grafana .
+installed steps are 
+<img width="659" height="218" alt="image" src="https://github.com/user-attachments/assets/7ca9d37c-8cfa-4c16-bf30-fe258c37972c" />
+Prometheus can be run on port no 9090 we need to open the port on the server
+<img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/0d4b17fb-fe15-41b2-92fa-641404404488" />
+we installed alert manager . if any issue faceing the cluster alert manager will trigger the congifure email .
+<img width="730" height="372" alt="image" src="https://github.com/user-attachments/assets/016cec3f-52ac-4edd-bc0c-bc6de89a9042" />
+We need to change the prometheus.yml in that we changed the alert manager name and host ip address for our EKS cluster.
+<img width="1052" height="535" alt="image" src="https://github.com/user-attachments/assets/971b7467-6ff6-4e25-899c-426f6ff66e5a" />
+
+
+
 
 
 
