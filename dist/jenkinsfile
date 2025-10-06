@@ -2,25 +2,21 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "trend-app:latest"
-        AWS_REGION   = "us-east-1"
+        DOCKER_IMAGE = "harikumar1997/trend-app:latest"
+        AWS_REGION = "us-east-1"
         CLUSTER_NAME = "trend-tasks-app"
-        K8S_NAMESPACE = "default"
-        KUBECONFIG = "/home/ec2-user/.kube/config"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', 
-                    url: 'https://github.com/khari2453/Trend-Tasks-App.git',
-                    credentialsId: 'github-cred'
+                git branch: 'main', url: 'https://github.com/khari2453/Trend-Tasks-App.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'docker build -t $DOCKER_IMAGE -f dist/Dockerfile dist/'
             }
         }
 
@@ -33,23 +29,25 @@ pipeline {
             }
         }
 
-        stage('Deploy to EKS') {
+        stage('Configure Kubeconfig') {
             steps {
-                withAWS(credentials: 'aws-cred', region: "${AWS_REGION}") {
-                    // Update kubeconfig for EKS
-                    sh 'aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME'
-                    
-                    // Apply K8s manifests (deployment + service)
-                    sh 'kubectl apply -f k8s/deployment.yaml -n $K8S_NAMESPACE'
-                    sh 'kubectl apply -f k8s/service.yaml -n $K8S_NAMESPACE'
-
-                    // Update deployment with new image
-                    sh 'kubectl set image deployment/trend-app trend-app=$DOCKER_IMAGE -n $K8S_NAMESPACE'
-
-                    // Ensure rollout succeeds
-                    sh 'kubectl rollout status deployment/trend-app -n $K8S_NAMESPACE'
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-eks-credentials']]) {
+                    sh '''
+                        aws sts get-caller-identity
+                        aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME
+                        kubectl get nodes
+                    '''
                 }
             }
         }
+
+        stage('Deploy to EKS') {
+            steps {
+                   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-eks-credentials']]) {
+                sh 'kubectl apply -f dist/k8s/deployment.yaml'
+                sh 'kubectl apply -f dist/k8s/service.yaml'
+            }
+        }
     }
+}
 }
