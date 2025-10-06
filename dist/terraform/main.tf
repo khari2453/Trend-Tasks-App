@@ -121,20 +121,47 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
 
+# IAM Role for EC2
+# -----------------------
+resource "aws_iam_role" "jenkins_role" {
+  name = "jenkins-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect    = "Allow",
+      Principal = { Service = "ec2.amazonaws.com" },
+      Action    = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins_attach" {
+  role       = aws_iam_role.jenkins_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+resource "aws_iam_instance_profile" "jenkins_profile" {
+  name = "jenkins-instance-profile"
+  role = aws_iam_role.jenkins_role.name
+}
+
+
 # Ec2 creation
 
 resource "aws_instance" "jenkins_Ec2" {
   ami           = "ami-08982f1c5bf93d976"
-  instance_type = "t3.micro"
+  instance_type = "t2.medium"
   key_name = aws_key_pair.jenkinskeyname.key_name
   subnet_id = aws_subnet.jenkins_public_subnet.id
   vpc_security_group_ids = [aws_security_group.jenkins_securitygroup.id]
+   iam_instance_profile   = aws_iam_instance_profile.jenkins_profile.name
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update –y
               sudo wget -O /etc/yum.repos.d/jenkins.repo \https://pkg.jenkins.io/redhat-stable/jenkins.repo
               sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-              sudo yum upgrade
+              sudo yum upgrade -y
               sudo yum install java-21-amazon-corretto -y
               sudo yum install jenkins -y
               sudo systemctl enable jenkins
