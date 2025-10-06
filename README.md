@@ -1,4 +1,5 @@
 # Trend-Tasks-App
 
 
-<img width="136" height="265" alt="image" src="https://github.com/user-attachments/assets/67862bf7-435d-44ae-b5b7-7c6a39d4bbfc" />
+<img width="1355" height="675" alt="image" src="https://github.com/user-attachments/assets/0d8ee4da-5328-4221-94f0-29e5b576bf93" />
+
