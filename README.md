@@ -13,6 +13,20 @@ Trendify online shopping website is basically created in React library and light
 - Prometheus and grafana
 - Github
 
+  # Source for the tools
+  
+
+| Category	| Tools/Services |	Purpose |
+|----------|----------------|---------|
+| Version Control	Git | GitHub	Store and manage source code; trigger pipeline via webhooks
+| Containerization	Docker | DockerHub	Build container images, store them, and deploy
+| IaC	Terraform	Provision | AWS infrastructure (VPC, EC2, IAM) automatically
+| CI/CD	Jenkins	Automate build | push, and deployment process
+| Orchestration	Kubernetes | AWS EKS	Deploy and manage app containers in production
+| Monitoring	Prometheus | Grafana (or alternative)	Track app and cluster health
+| Cloud Provider	AWS	Host infrastructure (EC2, EKS, VPC, IAM)
+
+
 
 # Step - 1
 <img width="48" height="48" src="https://img.icons8.com/fluency/48/docker.png" alt="docker"/>
