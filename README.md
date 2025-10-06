@@ -45,13 +45,13 @@ Createing the empty docker repo in dockerhub and given public access
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/bfafe2d2-5b2c-41db-afed-3c6c7cb95482" />
 
 # Step - 4
-On the Jenkins Server we installed EKS Cluster by running the commands are ` - curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" -o eksctl.tar.gz
+On the Jenkins Server we installed EKS Cluster by running the commands are  `- curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" -o eksctl.tar.gz
    - tar -xzf eksctl.tar.gz
    - sudo mv eksctl /usr/local/bin
    - eksctl version
    - kubectl version --client
    - aws sts get-caller-identity
-   - sudo eksctl create cluster   --name trend-tasks-app   --region us-east-1   --nodegroup-name trend-tasks-nodes   --node-type t3.medium   --nodes 2 '
+   - sudo eksctl create cluster   --name trend-tasks-app   --region us-east-1   --nodegroup-name trend-tasks-nodes   --node-type t3.medium   --nodes 2`
 
 ## EKS Cluster Running With Two nodes
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/fc942743-c254-4d09-8d38-8eb27acc96bd" />
@@ -66,8 +66,18 @@ On the Jenkins Server we installed EKS Cluster by running the commands are ` - c
 On the jenkins server opened on the Console UI . And adding pluging to deploy k8s cluster
 `k8s`
 `Docker`
+`pipeline stageview`
 Adding the credential to access the dockerhub and EKS Cluser
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/cf1f6f30-0d9f-48f7-a544-6d62c235f1f2" />
+
+# Step - 6
+
+Createing Project on the jenkins server using jenkins pipeline . In this pipeline cover the 5 stages `Checkout ,	Build Docker Image ,	Push to DockerHub ,	Configure Kubeconfig ,	Deploy to EKS`
+<img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/6c45a558-c2ea-4586-9b07-982856ed2caa" />
+
+# Step - 7 
+
+We used github for the version control system in the porject repo we created webhooks for the jekins to auto trigger if there is any code changes jenkins pipeline will trigger auto metically and code deploy to the EKS Cluster .
 
 
 
