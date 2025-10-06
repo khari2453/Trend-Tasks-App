@@ -78,6 +78,25 @@ Createing Project on the jenkins server using jenkins pipeline . In this pipelin
 # Step - 7 
 
 We used github for the version control system in the porject repo we created webhooks for the jekins to auto trigger if there is any code changes jenkins pipeline will trigger auto metically and code deploy to the EKS Cluster .
+<img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/b5dbedd7-12fa-41a6-8241-8c3fc4eb8648" />
+
+# Step - 8
+We Created K8s yml for deploy and service . `in that Service to used port forward from container port 80 to 3000 `
+
+# Step - 9
+By pushing the code changes in VCS it trigger automatically pipeline .
+<img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/d5b9990d-9bfe-4aef-886e-c40f4c098989" />
+
+# Step - 10
+
+If the above pipeline is succefull . it will deploy automatically in EKS cluster by verfiying using the commands are 
+
+<img width="1254" height="141" alt="image" src="https://github.com/user-attachments/assets/8be2c21c-eabb-458b-ab3f-ced60f9dbd82" />
+
+# Step - 11
+On the svc it will provide the external ip using this our application is run on succesfully .
+<img width="1355" height="675" alt="image" src="https://github.com/user-attachments/assets/20547e64-bd16-46d8-a45e-0a962efd8436" />
+
 
 
 
