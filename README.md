@@ -13,4 +13,13 @@ Trendify online shopping website is basically created in React library and light
 - Prometheus and grafana
 - Github
 
+
+  # Step- 1
+<img width="48" height="48" src="https://img.icons8.com/fluency/48/docker.png" alt="docker"/>
+## Createing Dockerfile
+`docker build -t trend-app:latest .
+
+
+
+
 <img width="48" height="48" src="https://img.icons8.com/color/48/terraform.png" alt="terraform"/>
