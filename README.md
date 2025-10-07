@@ -150,3 +150,5 @@ git add .
 git commit -m "final commit "
 git push origin main
 
+# End-to-End Flow Recap: Let’s recap the full flow. First, the developer pushes the static app to GitHub. GitHub triggers Jenkins automatically. Jenkins builds the Docker image, pushes it to DockerHub, and deploys it to Kubernetes on AWS EKS. The LoadBalancer exposes the app to the internet so users can access it, and monitoring ensures the app stays healthy. The whole process is automated, consistent, and production-ready. That’s the power of CI/CD, containerization, and Kubernetes working together .
+
