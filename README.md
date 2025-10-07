@@ -141,18 +141,12 @@ Installing grafana for better visualization tool
   - ./grafana-server &
 
     `Grafana runs on the port no 3000` we need to open the port no 3000 on the server .
-    
 
+    <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/f6084750-c888-4fc2-9de6-b86140aea47e" />
 
+# step - 14 
+Git commands
+git add .
+git commit -m "final commit "
+git push origin main
 
-
-
-
-
-
-
-
-
-
-
-<img width="48" height="48" src="https://img.icons8.com/color/48/terraform.png" alt="terraform"/>
